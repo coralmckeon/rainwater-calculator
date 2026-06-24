@@ -6,6 +6,7 @@ import AddressInput from "@/components/AddressInput";
 import PropertyForm from "@/components/PropertyForm";
 import ResultsDashboard from "@/components/ResultsDashboard";
 import StepIndicator from "@/components/StepIndicator";
+import { fetchRainfall, reverseGeocode } from "@/lib/api";
 
 const USMap = dynamic(() => import("@/components/USMap"), { ssr: false });
 
@@ -58,13 +59,7 @@ export default function Home() {
     setIsLoadingRainfall(true);
     setRainfallError(null);
     try {
-      const response = await fetch(
-        `/api/rainfall?lat=${lat}&lng=${lng}`
-      );
-      if (!response.ok) {
-        throw new Error("Failed to fetch rainfall data");
-      }
-      const data = await response.json();
+      const data = await fetchRainfall(lat, lng);
       setRainfallData(data);
     } catch (error) {
       console.error("Rainfall fetch error:", error);
@@ -83,25 +78,20 @@ export default function Home() {
 
   const handleMapClick = async (lat: number, lng: number) => {
     try {
-      const response = await fetch(
-        `/api/geocode?address=${lat},${lng}`
-      );
-      if (response.ok) {
-        const results = await response.json();
-        if (results.length > 0) {
-          setSelectedLocation(results[0]);
-          fetchRainfallData(lat, lng);
-        } else {
-          setSelectedLocation({
-            displayName: `${lat.toFixed(4)}, ${lng.toFixed(4)}`,
-            lat,
-            lng,
-            state: "",
-            city: "",
-            county: "",
-          });
-          fetchRainfallData(lat, lng);
-        }
+      const results = await reverseGeocode(lat, lng);
+      if (results.length > 0) {
+        setSelectedLocation(results[0]);
+        fetchRainfallData(lat, lng);
+      } else {
+        setSelectedLocation({
+          displayName: `${lat.toFixed(4)}, ${lng.toFixed(4)}`,
+          lat,
+          lng,
+          state: "",
+          city: "",
+          county: "",
+        });
+        fetchRainfallData(lat, lng);
       }
     } catch (error) {
       console.error("Reverse geocode error:", error);

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback, useRef, useEffect } from "react";
+import { geocodeAddress } from "@/lib/api";
 
 interface GeoResult {
   displayName: string;
@@ -48,14 +49,9 @@ export default function AddressInput({
 
     setIsLoading(true);
     try {
-      const response = await fetch(
-        `/api/geocode?address=${encodeURIComponent(searchQuery)}`
-      );
-      if (response.ok) {
-        const data = await response.json();
-        setSuggestions(data);
-        setShowSuggestions(true);
-      }
+      const data = await geocodeAddress(searchQuery);
+      setSuggestions(data);
+      setShowSuggestions(true);
     } catch (error) {
       console.error("Geocoding error:", error);
     } finally {
