@@ -2,6 +2,7 @@
 
 import { useState, useCallback } from "react";
 import dynamic from "next/dynamic";
+import Link from "next/link";
 import AddressInput from "@/components/AddressInput";
 import PropertyForm from "@/components/PropertyForm";
 import ResultsDashboard from "@/components/ResultsDashboard";
@@ -443,24 +444,24 @@ export default function Home() {
             state.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <a
+            <Link
               href="/education/what"
               className="bg-primary hover:bg-primary-dark text-white font-medium px-6 py-2.5 rounded-lg transition-colors"
             >
               What is Rainwater Harvesting?
-            </a>
-            <a
+            </Link>
+            <Link
               href="/regulations"
               className="border border-primary text-primary hover:bg-[#eef4f6] font-medium px-6 py-2.5 rounded-lg transition-colors"
             >
               View State Regulations
-            </a>
-            <a
+            </Link>
+            <Link
               href="/resources"
               className="border border-border text-foreground hover:bg-gray-50 font-medium px-6 py-2.5 rounded-lg transition-colors"
             >
               Resources
-            </a>
+            </Link>
           </div>
         </div>
       </section>
