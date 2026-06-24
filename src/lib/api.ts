@@ -42,26 +42,43 @@ export async function fetchRainfall(lat: number, lng: number): Promise<RainfallD
   const data = await response.json();
   const daily: DailyData = data.daily;
 
-  const monthlyTotals: number[] = new Array(12).fill(0);
-  const monthlyCounts: number[] = new Array(12).fill(0);
+  // Group precipitation by year and month to compute medians
+  // monthlyByYear[month][year] = total mm for that month/year
+  const monthlyByYear: Map<number, Map<number, number>> = new Map();
+  for (let m = 0; m < 12; m++) {
+    monthlyByYear.set(m, new Map());
+  }
 
   for (let i = 0; i < daily.time.length; i++) {
     const date = daily.time[i];
     const precip = daily.precipitation_sum[i];
     if (precip !== null && precip !== undefined) {
-      const month = parseInt(date.split("-")[1], 10) - 1;
-      monthlyTotals[month] += precip;
-      monthlyCounts[month]++;
+      const parts = date.split("-");
+      const year = parseInt(parts[0], 10);
+      const month = parseInt(parts[1], 10) - 1;
+      const yearMap = monthlyByYear.get(month)!;
+      yearMap.set(year, (yearMap.get(year) || 0) + precip);
     }
   }
 
   const MM_TO_INCHES = 1 / 25.4;
-  const NUM_YEARS = 30;
 
-  const monthlyAverages = monthlyTotals.map((total, i) => {
-    if (monthlyCounts[i] === 0) return 0;
-    const avgMonthlyMm = total / NUM_YEARS;
-    return Math.round(avgMonthlyMm * MM_TO_INCHES * 100) / 100;
+  function median(values: number[]): number {
+    if (values.length === 0) return 0;
+    const sorted = [...values].sort((a, b) => a - b);
+    const mid = Math.floor(sorted.length / 2);
+    return sorted.length % 2 !== 0
+      ? sorted[mid]
+      : (sorted[mid - 1] + sorted[mid]) / 2;
+  }
+
+  // For each month, take the median of the 30 yearly totals
+  const monthlyAverages = Array.from({ length: 12 }, (_, m) => {
+    const yearMap = monthlyByYear.get(m)!;
+    const yearlyTotals = Array.from(yearMap.values());
+    if (yearlyTotals.length === 0) return 0;
+    const medianMm = median(yearlyTotals);
+    return Math.round(medianMm * MM_TO_INCHES * 100) / 100;
   });
 
   const annualAverage =

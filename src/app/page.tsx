@@ -317,7 +317,7 @@ export default function Home() {
               {rainfallData && !isLoadingRainfall && (
                 <div className="mt-6 p-3 bg-emerald-50 border border-emerald-200 rounded-lg">
                   <p className="text-sm text-emerald-700">
-                    Rainfall data loaded. Average annual precipitation:{" "}
+                    Rainfall data loaded. Median annual precipitation:{" "}
                     <strong>
                       {rainfallData.annualAverage.toFixed(2)} inches
                     </strong>{" "}
