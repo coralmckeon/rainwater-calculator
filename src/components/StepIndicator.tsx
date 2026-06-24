@@ -16,12 +16,12 @@ export default function StepIndicator({
           <div key={index} className="flex items-center flex-1">
             <div className="flex flex-col items-center">
               <div
-                className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold transition-colors ${
+                className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold text-white transition-colors ${
                   index < currentStep
-                    ? "bg-secondary text-white"
+                    ? "bg-secondary"
                     : index === currentStep
-                    ? "bg-primary text-white"
-                    : "bg-gray-200 text-gray-500"
+                    ? "bg-primary ring-4 ring-primary/20"
+                    : "bg-[#9bb0b8]"
                 }`}
               >
                 {index < currentStep ? (
@@ -43,7 +43,7 @@ export default function StepIndicator({
                 )}
               </div>
               <p
-                className={`mt-2 text-xs font-medium text-center ${
+                className={`mt-2 text-sm font-semibold text-center ${
                   index <= currentStep ? "text-foreground" : "text-muted"
                 }`}
               >
@@ -62,6 +62,28 @@ export default function StepIndicator({
             )}
           </div>
         ))}
+      </div>
+
+      <div className="mt-6 text-center">
+        <a
+          href="#how-it-works"
+          className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:text-primary-dark transition-colors"
+        >
+          <svg
+            className="w-4 h-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+          How it works
+        </a>
       </div>
     </div>
   );

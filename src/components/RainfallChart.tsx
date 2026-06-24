@@ -90,19 +90,19 @@ export default function RainfallChart({
             <Bar
               yAxisId="left"
               dataKey="rainfall"
-              fill="#06b6d4"
+              fill="#2b78c4"
               radius={[2, 2, 0, 0]}
             />
             <Bar
               yAxisId="right"
               dataKey="capture"
-              fill="#0f766e"
+              fill="#2d5f6e"
               radius={[2, 2, 0, 0]}
             />
             <Bar
               yAxisId="right"
               dataKey="demand"
-              fill="#f97316"
+              fill="#e88c30"
               radius={[2, 2, 0, 0]}
             />
           </BarChart>

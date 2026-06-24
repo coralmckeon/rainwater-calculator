@@ -13,11 +13,11 @@ export default function Header() {
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center gap-2">
             <svg
-              className="w-8 h-8 text-primary"
+              className="w-7 h-7 text-primary"
               viewBox="0 0 24 24"
               fill="currentColor"
             >
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
+              <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0L12 2.69z" />
             </svg>
             <span className="text-xl font-bold text-foreground">
               Rainwater Calculator
@@ -31,7 +31,7 @@ export default function Header() {
               onMouseEnter={() => setEducationDropdownOpen(true)}
               onMouseLeave={() => setEducationDropdownOpen(false)}
             >
-              <button className="px-3 py-2 text-sm font-medium text-muted hover:text-foreground rounded-md hover:bg-gray-50 transition-colors flex items-center gap-1">
+              <button className="px-3 py-2 text-[15px] font-medium text-slate-700 hover:text-primary rounded-md hover:bg-gray-50 transition-colors flex items-center gap-1">
                 Education
                 <svg
                   className={`w-4 h-4 transition-transform ${
@@ -74,25 +74,25 @@ export default function Header() {
             </div>
             <Link
               href="/regulations"
-              className="px-3 py-2 text-sm font-medium text-muted hover:text-foreground rounded-md hover:bg-gray-50 transition-colors"
+              className="px-3 py-2 text-[15px] font-medium text-slate-700 hover:text-primary rounded-md hover:bg-gray-50 transition-colors"
             >
               Regulations
             </Link>
             <Link
               href="/resources"
-              className="px-3 py-2 text-sm font-medium text-muted hover:text-foreground rounded-md hover:bg-gray-50 transition-colors"
+              className="px-3 py-2 text-[15px] font-medium text-slate-700 hover:text-primary rounded-md hover:bg-gray-50 transition-colors"
             >
               Resources
             </Link>
             <Link
               href="/about"
-              className="px-3 py-2 text-sm font-medium text-muted hover:text-foreground rounded-md hover:bg-gray-50 transition-colors"
+              className="px-3 py-2 text-[15px] font-medium text-slate-700 hover:text-primary rounded-md hover:bg-gray-50 transition-colors"
             >
               About
             </Link>
             <Link
               href="/contact"
-              className="px-3 py-2 text-sm font-medium text-muted hover:text-foreground rounded-md hover:bg-gray-50 transition-colors"
+              className="px-3 py-2 text-[15px] font-medium text-slate-700 hover:text-primary rounded-md hover:bg-gray-50 transition-colors"
             >
               Contact
             </Link>

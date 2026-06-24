@@ -65,48 +65,146 @@ export default function ResultsDashboard({
     (cap, i) => cap >= monthlyDemand[i]
   ).length;
 
+  // Conservative (firm) yield: water you can actually put to use each month,
+  // capped by demand — captured rain beyond demand can't be used and overflows.
+  const firmYield = monthlyCapture.reduce(
+    (sum, cap, i) => sum + Math.min(cap, monthlyDemand[i]),
+    0
+  );
+
+  const monthlyDemandAvg = annualDemand / 12;
+
+  const roofTypeLabel =
+    propertyData.roofType.charAt(0).toUpperCase() +
+    propertyData.roofType.slice(1);
+
   return (
     <div className="space-y-8">
       {/* Summary Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-gradient-to-br from-cyan-50 to-cyan-100 border border-cyan-200 rounded-xl p-5">
-          <p className="text-xs font-medium text-cyan-700 uppercase tracking-wider">
-            Annual Capture
-          </p>
-          <p className="text-2xl font-bold text-cyan-900 mt-1">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        {/* Annual Potential */}
+        <div className="bg-[#e8f4fd] rounded-xl p-5">
+          <div className="flex items-center gap-2 mb-3">
+            <div className="w-9 h-9 rounded-full bg-white/70 flex items-center justify-center">
+              <svg
+                className="w-5 h-5 text-[#2b78c4]"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0L12 2.69z" />
+              </svg>
+            </div>
+            <p className="text-xs font-semibold text-[#2b6aa3] uppercase tracking-wider">
+              Annual Potential
+            </p>
+          </div>
+          <p className="text-3xl font-bold text-[#16395c]">
             {Math.round(annualCapture).toLocaleString()}
           </p>
-          <p className="text-sm text-cyan-700">gallons/year</p>
+          <p className="text-sm text-[#2b6aa3] mt-1">gallons/year</p>
         </div>
 
-        <div className="bg-gradient-to-br from-teal-50 to-teal-100 border border-teal-200 rounded-xl p-5">
-          <p className="text-xs font-medium text-teal-700 uppercase tracking-wider">
-            Recommended Tank
+        {/* Conservative Yield */}
+        <div className="bg-[#e8fdf4] rounded-xl p-5">
+          <div className="flex items-center gap-2 mb-3">
+            <div className="w-9 h-9 rounded-full bg-white/70 flex items-center justify-center">
+              <svg
+                className="w-5 h-5 text-[#1a9e6f]"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+            </div>
+            <p className="text-xs font-semibold text-[#1a8a62] uppercase tracking-wider">
+              Conservative Yield
+            </p>
+          </div>
+          <p className="text-3xl font-bold text-[#0f4d37]">
+            {Math.round(firmYield).toLocaleString()}
           </p>
-          <p className="text-2xl font-bold text-teal-900 mt-1">
+          <p className="text-sm text-[#1a8a62] mt-1">usable gallons/year</p>
+        </div>
+
+        {/* Tank Size */}
+        <div className="bg-[#f0e8fd] rounded-xl p-5">
+          <div className="flex items-center gap-2 mb-3">
+            <div className="w-9 h-9 rounded-full bg-white/70 flex items-center justify-center">
+              <svg
+                className="w-5 h-5 text-[#8455d6]"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M5 8c0-1.66 3.13-3 7-3s7 1.34 7 3m-14 0c0 1.66 3.13 3 7 3s7-1.34 7-3m-14 0v8c0 1.66 3.13 3 7 3s7-1.34 7-3V8"
+                />
+              </svg>
+            </div>
+            <p className="text-xs font-semibold text-[#6f48b8] uppercase tracking-wider">
+              Tank Size
+            </p>
+          </div>
+          <p className="text-3xl font-bold text-[#3d2766]">
             {recommendedTankSize.toLocaleString()}
           </p>
-          <p className="text-sm text-teal-700">gallons capacity</p>
+          <p className="text-sm text-[#6f48b8] mt-1">gallons recommended</p>
+        </div>
+      </div>
+
+      {/* Inputs + Interpretation */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="bg-[#f7fafb] border border-border rounded-xl p-6">
+          <p className="text-xs font-semibold text-muted uppercase tracking-wider mb-4">
+            Your Inputs
+          </p>
+          <dl className="space-y-3 text-sm">
+            <div className="flex justify-between gap-4">
+              <dt className="text-muted">Catchment area</dt>
+              <dd className="font-semibold text-foreground">
+                {propertyData.roofArea.toLocaleString()} sq ft
+              </dd>
+            </div>
+            <div className="flex justify-between gap-4">
+              <dt className="text-muted">Water demand</dt>
+              <dd className="font-semibold text-foreground">
+                {Math.round(monthlyDemandAvg).toLocaleString()} gal/mo
+              </dd>
+            </div>
+            <div className="flex justify-between gap-4">
+              <dt className="text-muted">Roof type</dt>
+              <dd className="font-semibold text-foreground">
+                {roofTypeLabel} ({Math.round(efficiency * 100)}%)
+              </dd>
+            </div>
+          </dl>
         </div>
 
-        <div className="bg-gradient-to-br from-blue-50 to-blue-100 border border-blue-200 rounded-xl p-5">
-          <p className="text-xs font-medium text-blue-700 uppercase tracking-wider">
-            Self-Sufficiency
+        <div className="bg-[#f7fafb] border border-border rounded-xl p-6">
+          <p className="text-xs font-semibold text-muted uppercase tracking-wider mb-4">
+            What This Means
           </p>
-          <p className="text-2xl font-bold text-blue-900 mt-1">
-            {selfSufficiencyPct}%
+          <p className="text-sm text-foreground leading-relaxed">
+            In {locationName}, your roof could capture about{" "}
+            <strong>{Math.round(annualCapture).toLocaleString()}</strong>{" "}
+            gallons of rainwater a year. After matching that supply to your
+            household demand, roughly{" "}
+            <strong>{Math.round(firmYield).toLocaleString()}</strong> gallons
+            are realistically usable — covering about{" "}
+            <strong>{selfSufficiencyPct}%</strong> of your needs, with capture
+            exceeding demand in {surplusMonths} of 12 months. A{" "}
+            <strong>{recommendedTankSize.toLocaleString()}-gallon</strong> tank
+            is a sensible starting size to smooth supply across the year.
           </p>
-          <p className="text-sm text-blue-700">of water needs met</p>
-        </div>
-
-        <div className="bg-gradient-to-br from-emerald-50 to-emerald-100 border border-emerald-200 rounded-xl p-5">
-          <p className="text-xs font-medium text-emerald-700 uppercase tracking-wider">
-            Surplus Months
-          </p>
-          <p className="text-2xl font-bold text-emerald-900 mt-1">
-            {surplusMonths}
-          </p>
-          <p className="text-sm text-emerald-700">of 12 months</p>
         </div>
       </div>
 

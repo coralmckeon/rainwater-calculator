@@ -34,9 +34,9 @@ interface PropertyData {
 }
 
 const steps = [
-  { label: "Location", description: "Find your address" },
-  { label: "Property", description: "Enter details" },
-  { label: "Results", description: "View analysis" },
+  { label: "Location", description: "Find your property" },
+  { label: "Property Details", description: "Enter home information" },
+  { label: "Results", description: "View your analysis" },
 ];
 
 export default function Home() {
@@ -117,122 +117,145 @@ export default function Home() {
   return (
     <div>
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-cyan-600 via-cyan-700 to-teal-800 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+      <section className="bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-10 sm:pt-24 sm:pb-14">
           <div className="text-center max-w-3xl mx-auto">
-            <h1 className="text-4xl sm:text-5xl font-bold mb-6 leading-tight">
+            <h1 className="text-4xl sm:text-5xl font-bold mb-6 leading-tight text-foreground">
               What&apos;s Your Rainwater Harvesting Potential?
             </h1>
-            <p className="text-lg sm:text-xl text-cyan-100 mb-8">
-              Calculate how much rainwater you can collect using{" "}
-              <strong className="text-white">30 years of localized weather data</strong>{" "}
-              for any address in the United States. Free, accurate, and
-              instant.
+            <p className="text-lg sm:text-xl text-muted mb-4">
+              Use localized rainfall history to estimate capture and find a
+              tank size that fits your demands.
             </p>
-            <a
-              href="#calculator"
-              className="inline-block bg-white text-cyan-700 font-semibold px-8 py-3 rounded-lg shadow-lg hover:bg-cyan-50 transition-colors text-lg"
-            >
-              Start Calculating
-            </a>
+            <p className="text-sm font-medium text-primary">
+              Free to use. Built from 30 years of US rainfall records.
+            </p>
           </div>
         </div>
       </section>
 
       {/* 3-Step Explainer */}
-      <section className="py-16 bg-white">
+      <section id="how-it-works" className="py-12 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-bold text-center text-foreground mb-12">
-            How It Works
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-cyan-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <svg
-                  className="w-8 h-8 text-primary"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
+          <div className="bg-[#eef4f6] rounded-3xl p-6 sm:p-10">
+            <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] gap-8 lg:gap-12 items-center">
+              {/* Left panel */}
+              <div>
+                <h2 className="text-3xl font-bold text-foreground mb-4">
+                  Get started in 3 simple steps
+                </h2>
+                <p className="text-muted mb-8">
+                  Pinpoint your property, tell us about your roof and water
+                  use, and get a localized estimate of how much rainwater you
+                  can capture and store.
+                </p>
+                <a
+                  href="#calculator"
+                  className="inline-block bg-accent hover:bg-accent-dark text-white font-semibold px-8 py-3 rounded-lg shadow-sm transition-colors text-lg"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                  />
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                  />
-                </svg>
+                  Begin Calculator
+                </a>
               </div>
-              <h3 className="text-lg font-semibold text-foreground mb-2">
-                1. Find Your Location
-              </h3>
-              <p className="text-muted text-sm">
-                Enter any US address or click on the map. We pinpoint your
-                exact coordinates for the most accurate rainfall data.
-              </p>
-            </div>
 
-            <div className="text-center">
-              <div className="w-16 h-16 bg-teal-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <svg
-                  className="w-8 h-8 text-secondary"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
-                  />
-                </svg>
-              </div>
-              <h3 className="text-lg font-semibold text-foreground mb-2">
-                2. Enter Property Details
-              </h3>
-              <p className="text-muted text-sm">
-                Tell us about your roof size, material, household size, and
-                water usage. We use this to calculate your specific potential.
-              </p>
-            </div>
+              {/* Right: step cards */}
+              <div className="space-y-4">
+                <div className="bg-white rounded-2xl p-5 flex items-start gap-4 shadow-sm">
+                  <div className="shrink-0 w-12 h-12 bg-[#d7ede9] rounded-full flex items-center justify-center">
+                    <svg
+                      className="w-6 h-6 text-[#1a7d6b]"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                      />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-foreground mb-1">
+                      Find Your Location
+                    </h3>
+                    <p className="text-muted text-sm">
+                      Enter any US address or click on the map. We pinpoint
+                      your exact coordinates for the most accurate rainfall
+                      data.
+                    </p>
+                  </div>
+                </div>
 
-            <div className="text-center">
-              <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <svg
-                  className="w-8 h-8 text-blue-600"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-                  />
-                </svg>
+                <div className="bg-white rounded-2xl p-5 flex items-start gap-4 shadow-sm">
+                  <div className="shrink-0 w-12 h-12 bg-[#fbeccd] rounded-full flex items-center justify-center">
+                    <svg
+                      className="w-6 h-6 text-[#d99311]"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-foreground mb-1">
+                      Enter Property Details
+                    </h3>
+                    <p className="text-muted text-sm">
+                      Tell us about your roof size, material, household size,
+                      and water usage. We use this to calculate your specific
+                      potential.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="bg-white rounded-2xl p-5 flex items-start gap-4 shadow-sm">
+                  <div className="shrink-0 w-12 h-12 bg-[#dde7ec] rounded-full flex items-center justify-center">
+                    <svg
+                      className="w-6 h-6 text-[#43677a]"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-foreground mb-1">
+                      Review Your Results
+                    </h3>
+                    <p className="text-muted text-sm">
+                      Get a detailed analysis including annual capture volume,
+                      recommended tank size, monthly charts, and supply vs.
+                      demand breakdown.
+                    </p>
+                  </div>
+                </div>
               </div>
-              <h3 className="text-lg font-semibold text-foreground mb-2">
-                3. Review Your Results
-              </h3>
-              <p className="text-muted text-sm">
-                Get a detailed analysis including annual capture volume,
-                recommended tank size, monthly charts, and supply vs. demand
-                breakdown.
-              </p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Calculator Section */}
-      <section id="calculator" className="py-16 bg-background">
+      <section id="calculator" className="py-16 bg-[#f7fafb]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-center text-foreground mb-2">
             Rainwater Harvesting Calculator
@@ -428,7 +451,7 @@ export default function Home() {
             </a>
             <a
               href="/regulations"
-              className="border border-primary text-primary hover:bg-cyan-50 font-medium px-6 py-2.5 rounded-lg transition-colors"
+              className="border border-primary text-primary hover:bg-[#eef4f6] font-medium px-6 py-2.5 rounded-lg transition-colors"
             >
               View State Regulations
             </a>
